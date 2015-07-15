@@ -1,0 +1,9 @@
+{
+	"name": "dtrie",
+	"description": "Dictionary representation of Trie",
+	"copyright": "Copyright © 2015, Ishita Takeshi",
+    "license": "MIT",
+	"authors": ["Ishita Takeshi"],
+	"dependencies": {
+	}
+}

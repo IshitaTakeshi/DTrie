@@ -1,7 +1,7 @@
 Louds-Trie
 ==========
 
-Implementation of the Trie data structure.
+The dictionary representation of the Trie data structure.
 
 
 ## Examples
