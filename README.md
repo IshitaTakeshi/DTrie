@@ -39,7 +39,7 @@ assert(dictionary.get("あけました") == ["開けました", "明けました
 ## Running Tests
 
 ```
-$dmd test.d bitarray.d lib/exception.d lib/random/random.d lib/random/string.d queue.d trie.d -unittest 
+$dmd test.d bitarray.d lib/exception.d lib/random/random.d lib/random/string.d queue.d dtrie.d -unittest 
 $./test
 ```
 

@@ -22,7 +22,7 @@ in {
     assert(max_length > 0);
 }
 body {
-    string words[];
+    string[] words;
     for(auto i = 0; i < n_words; i++) {
         ulong length = uniform(1, max_length+1);
         words ~= generateRandomWord(length);

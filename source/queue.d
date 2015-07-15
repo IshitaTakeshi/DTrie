@@ -5,7 +5,7 @@ import lib.exception : IndexError;
  */
 //TODO add tests
 class Queue(T) {
-    T items[];
+    T[] items;
 
     /**
     Insert item to the queue.
@@ -49,7 +49,7 @@ class Queue(T) {
 
 unittest {
     Queue!int queue = new Queue!int();
-    int items[] = [10, 20, 50];
+    int[] items = [10, 20, 50];
 
     foreach(int item; items) {
         queue.append(item);

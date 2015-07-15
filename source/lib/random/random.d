@@ -17,7 +17,7 @@ T[] randomArray(T) (T low, T high, ulong size) {
         throw new ValueError("low >= high");
     }
 
-    T array[] = new T[size];
+    T[] array = new T[size];
     foreach(ref e; array) {
         e = uniform(low, high);
     }

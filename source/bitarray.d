@@ -114,7 +114,7 @@ class BitArray {
         }
     }
     unittest {
-        uint bits[20] = 0;
+        uint[20] bits = 0;
 
         SuccinctBitVector bitvector = new SuccinctBitVector();
         foreach(uint bit; bits) {
@@ -336,15 +336,15 @@ unittest {
     }
     bitvector.build();
 
-    uint rank0_answers[] = [1, 1, 2, 2, 3, 4, 5, 5, 5, 5];
-    uint rank1_answers[] = [0, 1, 1, 2, 2, 2, 2, 3, 4, 5];
+    uint[] rank0_answers = [1, 1, 2, 2, 3, 4, 5, 5, 5, 5];
+    uint[] rank1_answers = [0, 1, 1, 2, 2, 2, 2, 3, 4, 5];
     for(auto i = 0; i < 10; i++) {
         assert(bitvector.rank0(i) == rank0_answers[i]);
         assert(bitvector.rank1(i) == rank1_answers[i]);
     }
 
-    uint select0_answers[] = [0, 2, 4, 5, 6];
-    uint select1_answers[] = [1, 3, 7, 8, 9];
+    uint[] select0_answers = [0, 2, 4, 5, 6];
+    uint[] select1_answers = [1, 3, 7, 8, 9];
 
     for(auto i = 0; i < 5; i++) {
         assert(bitvector.select0(i) == select0_answers[i]);
@@ -355,7 +355,7 @@ unittest {
 
 //boundary value analysis
 unittest {
-    uint bits[10] = 0;
+    uint[10] bits = 0;
 
     SuccinctBitVector bitvector = new SuccinctBitVector();
     foreach(uint bit; bits) {
@@ -370,7 +370,7 @@ unittest {
 
 
 unittest {
-    uint bits[10] = 0;
+    uint[10] bits = 0;
 
     SuccinctBitVector bitvector = new SuccinctBitVector();
     foreach(uint bit; bits) {
@@ -394,7 +394,7 @@ unittest {
     import std.random : uniform;
     import lib.random.random : randomArray;
 
-    uint select(uint bits[], uint n, uint targetBit) {
+    uint select(uint[] bits, uint n, uint targetBit) {
         uint n_appearances = 0;
         for(uint i = 0; i < bits.length; i++) {
             if(bits[i] == targetBit) {
@@ -407,7 +407,7 @@ unittest {
         return cast(uint)bits.length;
     }
 
-    uint rank(uint bits[], uint position, uint targetBit) {
+    uint rank(uint[] bits, uint position, uint targetBit) {
         uint n = 0;
         foreach(uint bit; bits[0..position+1]) {
             if(bit == targetBit) {
@@ -419,7 +419,7 @@ unittest {
 
     void testRandom() {
         uint size = uniform(10, 1000);
-        uint bits[] = cast(uint[])randomArray(0, 2, size);
+        uint[] bits = cast(uint[])randomArray(0, 2, size);
 
         SuccinctBitVector bitvector = new SuccinctBitVector();
         foreach(uint bit; bits) {

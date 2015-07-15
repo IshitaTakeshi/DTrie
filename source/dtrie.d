@@ -1,3 +1,4 @@
+module dtrie;
 import std.typecons : tuple, Tuple;
 import std.algorithm : reverse, sort, SwapStrategy;
 import std.conv : to;
