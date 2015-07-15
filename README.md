@@ -1,4 +1,4 @@
-Louds-Trie
+DTrie
 ==========
 
 The dictionary representation of the Trie data structure.
