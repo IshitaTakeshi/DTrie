@@ -18,23 +18,21 @@ __Multi-byte strings are available.__
 
 ```
 string[] keys = [
-    "あけます", "あけます", "あけます",
-    "あけました", "あけました", "あけました"
+    "あけます", "あけます",
+    "あけました", "あけました",
 ];
 
 string[] values = [
-    "開けます", "明けます", "空けます",
-    "開けました", "明けました", "空けました"
+    "開けます", "明けます",
+    "開けました", "明けました",
 ];
 
 auto dictionary = new Dictionary(keys, values);
 
-//"あけます" is associated to "開けます", "明けます" and "空けます".
-assert(dictionary.get("あけます") == ["開けます", "明けます", "空けます"]);
-
-//"あけました" is associated  to "開けました", "明けました" and "空けました"
-assert(dictionary.get("あけました") ==
-       ["開けました", "明けました", "空けました"]);
+//"あけます" is associated to "開けます" and "明けます" 
+assert(dictionary.get("あけます") == ["開けます", "明けます"]);
+//"あけました" is associated  to "開けました" and "明けました" 
+assert(dictionary.get("あけました") == ["開けました", "明けました"]);
 ```
 
 
