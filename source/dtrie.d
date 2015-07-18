@@ -136,7 +136,7 @@ unittest {
 }
 
 
-//Ensure the same bit string generated if the word order is randomized.
+//Ensure the same bit string generated even if the word order is randomized.
 unittest {
     string[] words = ["our", "out", "i", "an", "of", "one"];
 
@@ -168,7 +168,7 @@ class WordNodeNumberMap {
 
     /**
     Build the dictionary.
-    Raise ValueError if the empty string is contained in the words.
+    Raise ValueError if empty string is contained in given words.
     */
     this(string[] words)
     in {
@@ -241,7 +241,7 @@ class WordNodeNumberMap {
     }
 
     /**
-    Return the word the associated node number.
+    Return a word associated with the node number.
     */
     string getWord(uint node_number)
     in {
@@ -332,8 +332,7 @@ Interface of kana-kanji dictionary.
 */
 class Dictionary {
     /*
-    This is the implementation of a string-to-string dictionary by
-    using a copule of trie trees.
+    This is the a string-to-string dictionary implemented using a copule of trie trees.
     Trie provides a function which returns the node number given the key, and
     also has a function which returns the key given the node number.
     Algorithm:
@@ -346,7 +345,7 @@ class Dictionary {
             1. Extract the node number associated with the key.
             2. Get the node number corresponding to the node number given by
             the key using the associative array.
-            3. Extract the value with the node number obtained at 2.
+            3. Extract the value using the node number obtained at 2.
     */
 
     private WordNodeNumberMap key_to_node_number;
