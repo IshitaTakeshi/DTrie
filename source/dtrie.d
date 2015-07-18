@@ -46,9 +46,8 @@ class LoudsBitStringBuilder {
 
         this.tree = new Node(' ');  //make root
 
+        //To avoid making effects to the outside of this class,
         //copy given string array into newly allocated string array
-        //to avoid influencing behavior of words at the outside of
-        //this class
         string[] words_ = new string[words.length];
         words_[0..$] = words[0..$];
 

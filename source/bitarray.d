@@ -164,7 +164,7 @@ class BitArray {
 
 
 /**
-The implementation of succinct bit vector.
+Implementation of succinct bit vector.
 */
 class SuccinctBitVector : BitArray {
     //HACK tune the size
