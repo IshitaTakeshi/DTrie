@@ -500,7 +500,7 @@ unittest {
 
 
 //TODO try to make only this class public
-class Dictionary(T) {
+class DTrie(T) {
   //string-to-anytype map
   private WordObjectMap!(T) word_object_map;
   //string specific map (less memory)
@@ -533,7 +533,7 @@ class Dictionary(T) {
 
 ///
 unittest {
-  auto dictionary = new Dictionary!string(["Win", "hot"], ["Lose", "cold"]);
+  auto dictionary = new DTrie!string(["Win", "hot"], ["Lose", "cold"]);
   assert(dictionary["Win"] == ["Lose"]);
   assert(dictionary["hot"] == ["cold"]);
   assert(dictionary["won"] == []);
@@ -541,7 +541,7 @@ unittest {
 
 ///
 unittest {
-  auto dictionary = new Dictionary!int(["one", "two"], [1, 2]);
+  auto dictionary = new DTrie!int(["one", "two"], [1, 2]);
   assert(dictionary["one"] == [1]);
   assert(dictionary["two"] == [2]);
   assert(dictionary["three"] == []);
@@ -559,25 +559,25 @@ unittest {
     "スモークチーズ"
   ];
 
-  auto dictionary = new Dictionary!(string)(keys, values);
+  auto dictionary = new DTrie!(string)(keys, values);
   assert(dictionary["すもーくちーず"] == ["スモークチーズ"]);
 }
 
 
 unittest {
-  auto america = new Dictionary!string(
+  auto america = new DTrie!string(
       ["Capital", "Currency"],
       ["Washington, D.C.", "Dollar"]);
 
-  auto china = new Dictionary!string(
+  auto china = new DTrie!string(
       ["Capital", "Currency"],
       ["Beijing", "Renminbi"]);
 
-  auto japan = new Dictionary!string(
+  auto japan = new DTrie!string(
       ["Capital", "Currency"],
       ["Tokyo", "Yen"]);
 
-  auto countries = new Dictionary!(Dictionary!string)(
+  auto countries = new DTrie!(DTrie!string)(
       ["America", "China", "Japan"],
       [america, china, japan]);
 
@@ -604,7 +604,7 @@ unittest {
     "開けました", "明けました", "空けました"
   ];
 
-  auto dictionary = new Dictionary!(string)(keys, values);
+  auto dictionary = new DTrie!(string)(keys, values);
   assert(dictionary["あけます"] == ["開けます", "明けます", "空けます"]);
   assert(dictionary["あけました"] ==
       ["開けました", "明けました", "空けました"]);
