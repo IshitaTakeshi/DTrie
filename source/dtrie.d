@@ -136,7 +136,7 @@ unittest {
 }
 
 
-//Ensure the same bit string generated if the word order is randomized.
+//Ensure the same bit string generated even if the word order is randomized.
 unittest {
   string[] words = ["our", "out", "i", "an", "of", "one"];
 
