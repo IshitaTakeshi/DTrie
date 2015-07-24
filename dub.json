@@ -15,9 +15,6 @@
         },
         "profile": {
             "buildOptions": ["debugMode", "debugInfo", "profile"]
-        },
-        "verbose-score": {
-            "dflags": ["-debug=verbose_score"]
         }
     }
 
