@@ -4,18 +4,5 @@
     "copyright": "Copyright © 2015, Ishita Takeshi",
     "license": "MIT",
     "authors": ["Ishita Takeshi"],
-    "targetType":   "library",
-    "buildTypes": {
-        "release": {
-            "buildOptions": ["releaseMode"]
-        },
-        "debug": {
-            "buildOptions": ["debugMode", "debugInfo", "optimize"],
-            "dflags": ["-vgc"]
-        },
-        "profile": {
-            "buildOptions": ["debugMode", "debugInfo", "profile"]
-        }
-    }
-
+    "targetType":   "library"
 }

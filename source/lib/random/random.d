@@ -4,7 +4,7 @@ import std.random : uniform;
 import lib.exception : ValueError;
 
 /**
-Returns random numbers from [low, high).
+Returns random numbers from [low, high$(RPAREN).
 The random numbers are uniformly distributed.
 
 Parameters:
