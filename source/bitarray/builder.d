@@ -33,6 +33,7 @@ class Node {
 }
 
 
+//TODO add a method to make on-line construction
 /**
   This class has:<br>
   A function which constructs a tree by inserted words.<br>

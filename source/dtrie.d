@@ -86,6 +86,9 @@ class WordWordMap : Map!string {
     }
   }
 
+  /**
+    Returns a forward range which will iterate over the keys of the dictionary.
+   */
   @property IterableKeys byKey() {
     return IterableKeys(this.key_to_node_number,
                         this.node_number_map);
@@ -105,7 +108,7 @@ class WordWordMap : Map!string {
 
   /**
     Return the values given the key.
-    Empty array will be returned if the key doesn't exist among the
+    Empty array will be returned if the key doesn't exist in the
     key set.
   */
   string[] get(string key) {
