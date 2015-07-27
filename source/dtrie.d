@@ -4,7 +4,52 @@ import map : WordNodeNumberMap;
 import lib.exception : ValueError, KeyError;
 
 
-class WordWordMap {
+struct IterableKeys {
+  /*
+  T is the type of a value.
+  */
+
+  private WordNodeNumberMap key_to_node_number;
+  //node numbers each of which contains at least one value
+  uint[] node_has_value;
+
+  this(T)(WordNodeNumberMap key_to_node_number,
+          T[][] node_number_value_map) {
+    this.key_to_node_number = key_to_node_number;
+
+    foreach(uint node_number, T[] values; node_number_value_map) {
+      if(values.length > 0) {
+        this.node_has_value ~= node_number;
+      }
+    }
+  }
+
+  int opApply(int delegate(string) dg) {
+    int result;
+
+    //if node_number_value_map[node_number] has value, traverse a tree from
+    //a leaf to get the corresponding word
+    foreach(uint node_number; this.node_has_value) {
+      string word = this.key_to_node_number.getWord(node_number);
+
+      result = dg(word);
+      if(result != 0) {
+        break;
+      }
+    }
+    return result;
+  }
+}
+
+
+interface Map(T) {
+  //this(string[] keys, T[] values);
+  T[] get(string key);
+  IterableKeys byKey();
+}
+
+
+class WordWordMap : Map!string {
   /*
     This is a string-to-string dictionary implemented using
     a copule of trie trees.
@@ -39,6 +84,11 @@ class WordWordMap {
     foreach(uint i, key; keys) {
       this.associateNodeNumbers(key, values[i]);
     }
+  }
+
+  @property IterableKeys byKey() {
+    return IterableKeys(this.key_to_node_number,
+                        this.node_number_map);
   }
 
   private void associateNodeNumbers(string key, string value) {
@@ -114,7 +164,7 @@ unittest {
 }
 
 
-class WordObjectMap(T) {
+class WordObjectMap(T) : Map!T {
   /*
     string-to-object dictionary
     Algorithm:
@@ -140,6 +190,11 @@ class WordObjectMap(T) {
     foreach(ulong i, key; keys) {
       this.associateNodeNumberToValue(key, values[i]);
     }
+  }
+
+  @property IterableKeys byKey() {
+    return IterableKeys(this.key_to_node_number,
+                        this.node_number_value_map);
   }
 
   private void associateNodeNumberToValue(string key, T value) {
@@ -180,10 +235,7 @@ unittest {
 
 //TODO try to make only this class public
 class DTrie(T) {
-  //string-to-anytype map
-  private WordObjectMap!(T) word_object_map;
-  //string specific map (less memory)
-  private WordWordMap word_word_map;
+  private Map!(T) map;
 
   this(string[] keys, T[] values)
   in {
@@ -194,18 +246,48 @@ class DTrie(T) {
   }
   body {
     static if(is(T : string)) {
-      this.word_word_map = new WordWordMap(keys, values);
+      //string specific map (less memory)
+      this.map = new WordWordMap(keys, values);
     } else {
-      this.word_object_map = new WordObjectMap!(T)(keys, values);
+      //string-to-anytype map
+      this.map = new WordObjectMap!(T)(keys, values);
     }
   }
 
-  T[] opIndex(string key) {
-    static if(is(T : string)) {
-      return this.word_word_map.get(key);
-    } else {
-      return this.word_object_map.get(key);
+  @property IterableKeys byKey() {
+    return this.map.byKey;
+  }
+  unittest {
+    import std.container;
+    import std.range;
+    import std.array;
+    import std.algorithm;
+
+    alias Set = make!(RedBlackTree!string);
+
+    void testByKey(T)(string[] keys, T[] values) {
+      auto map = new DTrie!T(keys, values);
+
+      auto words = Set();
+      foreach(word; map.byKey) {
+        words.insert(word);
+      }
+
+      assert(equal(words[], keys));
     }
+
+    //test for string-to-anytype map
+    testByKey(
+        ["a", "an", "i", "of", "on", "one", "our", "out"],
+        [0, 1, 2, 3, 4, 5, 6, 7]);
+    //test for string-to-string map
+    testByKey(
+        ["a", "an", "i", "of", "on", "one", "our", "out"],
+        ["A", "AN", "I", "OF", "ON", "ONE", "OUR", "OUT"]);
+  }
+
+  T[] opIndex(string key) {
+    return this.map.get(key);
   }
 }
 

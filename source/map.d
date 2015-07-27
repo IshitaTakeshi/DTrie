@@ -1,10 +1,14 @@
 import std.typecons : tuple, Tuple;
 import std.array : popBack, empty;
+debug {
+  import std.stdio;
+}
 
 import lib.exception : KeyError, ValueError;
 
 import bitarray.bitarray;
 import bitarray.builder;
+
 
 /**
   Map of words and node numbers with a trie.
@@ -41,6 +45,7 @@ class WordNodeNumberMap {
     }
     assert(error_thrown);
   }
+
 
   /**
     Return the node number of a child if exists.
