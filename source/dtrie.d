@@ -113,14 +113,10 @@ class WordWordMap : Map!string {
      */
     string[] get(string key) {
         string[] values;
-        try {
-            uint k = this.key_to_node_number.getNodeNumber(key);
-            uint[] value_node_numbers = this.node_number_map[k];
-            foreach(v; value_node_numbers) {
-                values ~= this.node_number_to_value.getWord(v);
-            }
-        } catch(KeyError e) {
-            return cast(string[])[];
+        uint k = this.key_to_node_number.getNodeNumber(key);
+        uint[] value_node_numbers = this.node_number_map[k];
+        foreach(v; value_node_numbers) {
+            values ~= this.node_number_to_value.getWord(v);
         }
         return values;
     }
@@ -130,9 +126,17 @@ class WordWordMap : Map!string {
 ///
 unittest {
     auto dictionary = new WordWordMap(["Win", "hot"], ["Lose", "cold"]);
+
     assert(dictionary.get("Win") == ["Lose"]);
     assert(dictionary.get("hot") == ["cold"]);
-    assert(dictionary.get("won") == []);
+
+    bool error_thrown = false;
+    try {
+        dictionary.get("won");
+    } catch(KeyError e) {
+        error_thrown = true;
+    }
+    assert(error_thrown);
 }
 
 
@@ -213,16 +217,11 @@ class WordObjectMap(T) : Map!T {
 
     /**
       Return the values given the key.
-      Empty array will be returned if the key doesn't exist among the
-      key set.
+      Raise KeyError if key not found.
      */
     T[] get(string key) {
-        try {
-            uint k = this.key_to_node_number.getNodeNumber(key);
-            return this.node_number_value_map[k];
-        } catch(KeyError e) {
-            return cast(T[])[];
-        }
+        uint k = this.key_to_node_number.getNodeNumber(key);
+        return this.node_number_value_map[k];
     }
 }
 
@@ -232,7 +231,15 @@ unittest {
     auto dictionary = new WordObjectMap!(int)(["one", "two"], [1, 2]);
     assert(dictionary.get("one") == [1]);
     assert(dictionary.get("two") == [2]);
-    assert(dictionary.get("three") == []);
+
+
+    bool error_thrown = false;
+    try {
+        dictionary.get("three");
+    } catch(KeyError e) {
+        error_thrown = true;
+    }
+    assert(error_thrown);
 }
 
 
@@ -298,7 +305,15 @@ unittest {
     auto dictionary = new DTrie!string(["Win", "hot"], ["Lose", "cold"]);
     assert(dictionary["Win"] == ["Lose"]);
     assert(dictionary["hot"] == ["cold"]);
-    assert(dictionary["won"] == []);
+
+
+    bool error_thrown = false;
+    try {
+        dictionary["won"];
+    } catch(KeyError e) {
+        error_thrown = true;
+    }
+    assert(error_thrown);
 }
 
 
@@ -307,7 +322,14 @@ unittest {
     auto dictionary = new DTrie!int(["one", "two"], [1, 2]);
     assert(dictionary["one"] == [1]);
     assert(dictionary["two"] == [2]);
-    assert(dictionary["three"] == []);
+
+    bool error_thrown = false;
+    try {
+        dictionary["three"];
+    } catch(KeyError e) {
+        error_thrown = true;
+    }
+    assert(error_thrown);
 }
 
 
