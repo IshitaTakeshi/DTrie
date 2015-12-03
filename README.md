@@ -22,7 +22,7 @@ import dtrie;
 auto dictionary = new DTrie!string(["Win", "hot"], ["Lose", "cold"]);
 assert(dictionary["Win"] == ["Lose"]);
 assert(dictionary["hot"] == ["cold"]);
-assert(dictionary["won"] == []);
+dictionary["won"];  //KeyError
 ```
 
 __Multi-byte strings are available.__
