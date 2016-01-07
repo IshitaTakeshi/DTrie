@@ -129,7 +129,7 @@ class WordWordMap : Map!string {
 }
 
 
-///
+///string to string
 unittest {
     auto dictionary = new WordWordMap(["Win", "hot"], ["Lose", "cold"]);
 
@@ -232,7 +232,7 @@ class WordObjectMap(T) : Map!T {
 }
 
 
-///
+///string to int
 unittest {
     auto dictionary = new WordObjectMap!(int)(["one", "two"], [1, 2]);
     assert(dictionary.get("one") == [1]);
