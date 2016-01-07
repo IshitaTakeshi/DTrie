@@ -114,10 +114,16 @@ class WordWordMap : Map!string {
     string[] get(string key) {
         string[] values;
         uint k = this.key_to_node_number.getNodeNumber(key);
-        uint[] value_node_numbers = this.node_number_map[k];
-        foreach(v; value_node_numbers) {
+        uint[] node_numbers = this.node_number_map[k];
+
+        if(node_numbers.length == 0) {
+            throw new KeyError(key);
+        }
+
+        foreach(v; node_numbers) {
             values ~= this.node_number_to_value.getWord(v);
         }
+
         return values;
     }
 }
